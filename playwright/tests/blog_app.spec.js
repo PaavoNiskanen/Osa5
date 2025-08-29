@@ -15,34 +15,34 @@ describe('Blog app', () => {
     await page.goto('/')
   })
 
-  test('Login form is shown', async ({ page }) => {
+  test('5.17 LoginForm näytetään', async ({ page }) => {
     await loginWith(page, 'tester', 'salasana')
     await expect(page.getByText('Tervetuloa Testaaja!')).toBeVisible()
   })
 
-  describe('Login', () => {
-    test('succeeds with correct credentials', async ({ page }) => {
+  describe('Kirjaudu sisään', () => {
+    test('5.18 Onnistuu oikeilla tiedoilla', async ({ page }) => {
       await loginWith(page, 'tester', 'salasana')
       await expect(page.getByText('Tervetuloa Testaaja!')).toBeVisible()
     })
 
-    test('fails with wrong credentials', async ({ page }) => {
+    test('5.18 Epäonnistuu väärillä tiedoilla', async ({ page }) => {
       await loginWith(page, 'tester', 'väärä')
       await expect(page.getByText('Wrong username or password!')).toBeVisible()
     })
   })
 
-  describe('When logged in', () => {
+  describe('Kun on jo kirjautunut sisään', () => {
     beforeEach(async ({ page }) => {
       await loginWith(page, 'tester', 'salasana')
     })
 
-    test('a new blog can be created', async ({ page }) => {
+    test('5.19 Uusi blogi luodaan', async ({ page }) => {
       await createBlog(page, 'Playwright test blog')
       await expect(page.getByText('Playwright test blog Test Author').first()).toBeVisible()
     })
 
-    test('the new blog can be liked', async ({ page }) => {
+    test('5.20 Testi blogia voi tykätä', async ({ page }) => {
       const blog = page.locator('.blog').filter({ hasText: 'Playwright test blog Test Author' })
       await blog.getByRole('button', { name: /view/i }).first().click()
       await expect(blog.getByText(/likes 0/)).toBeVisible()
@@ -50,7 +50,7 @@ describe('Blog app', () => {
       await expect(blog.getByText(/likes 1/)).toBeVisible()
     })
 
-    test('a blog can be deleted by the user who created it', async ({ page }) => {
+    test('5.21 Testi blogin voi poistaa', async ({ page }) => {
       const blog = page.locator('.blog').filter({ hasText: 'Playwright test blog Test Author' })
       await blog.getByRole('button', { name: /view/i }).click()
       page.on('dialog', async dialog => {
@@ -60,7 +60,7 @@ describe('Blog app', () => {
       await blog.getByRole('button', { name: /remove/i }).click()
     })
 
-    test('only the user who added the blog sees the remove button', async ({ page, request }) => {
+    test('5.22 Vain pääkäyttäjä voi poistaa blogin', async ({ page, request }) => {
       await createBlog(page, 'Tester1 blog')
       await expect(page.getByText('Tester1 blog Test Author').first()).toBeVisible()
 
@@ -99,7 +99,7 @@ describe('Blog app', () => {
     })
   })
   
-  test('blogs are ordered by number of likes', async ({ page }) => {
+  test('5.23 Blogit ovat sivustolla järjestyksessä suurimmasta tykkäysmäärästä pienimpään', async ({ page }) => {
     const blogs = page.locator('.blog')
     const count = await blogs.count()
     for (let i = 0; i < count; i++) {

@@ -57,6 +57,8 @@ const App = () => {
     setUser(null)
     blogService.setToken(null)
     console.log('Kirjauduttu ulos')
+    window.localStorage.removeItem('loggedBlogappUser')
+    notify('Olet kirjautunut ulos')
   }
 
   const addBlog = async (blogObject) => {
