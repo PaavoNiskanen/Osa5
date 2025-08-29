@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "express-async-errors": "^3.1.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.7.0",
+    "@testing-library/react": "^16.3.0",
+    "eslint": "^9.33.0",
+    "globals": "^16.3.0",
+    "jsdom": "^26.1.0",
+    "vitest": "^3.2.4"
+  }
+}

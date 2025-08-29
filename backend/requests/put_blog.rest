@@ -1,0 +1,17 @@
+# PUT lisätään blogiin tykkäyksen
+
+PUT http://localhost:3003/api/blogs/68967221cdd57fbf94fb2aa4
+Content-Type: application/json
+
+{
+  "title": "Testing",
+  "author": "Testaaja",
+  "url": "http://testaaja.fi",
+  "likes": 5,
+  "user": {
+    "username": "tester",
+    "name": "Testaaja",
+    "id": "68927bec902d3a2548989b02"
+  },
+  "id": "68967221cdd57fbf94fb2aa4"
+}
